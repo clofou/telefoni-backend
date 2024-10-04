@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.bamappli</groupId>
 	<artifactId>telefoni-dashboard</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>telefoni-dashboard</name>
 	<description>telefoni-dashboard</description>
 	<url/>
