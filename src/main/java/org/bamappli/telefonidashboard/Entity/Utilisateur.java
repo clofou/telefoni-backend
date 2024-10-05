@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bamappli.telefonidashboard.Enum.Grade;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Getter
@@ -29,4 +30,5 @@ public class Utilisateur {
 
     @OneToOne
     private Wallet compte;
+
 }

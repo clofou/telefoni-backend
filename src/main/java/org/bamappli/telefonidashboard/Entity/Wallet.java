@@ -16,8 +16,8 @@ public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double solde;
+    private double solde = 0;
     @Enumerated(EnumType.STRING)
-    private Devise devise;
+    private Devise devise = Devise.CFA;
     private int codeSecret;
 }
