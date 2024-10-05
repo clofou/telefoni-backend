@@ -1,0 +1,25 @@
+package org.bamappli.telefonidashboard.Entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Promotion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private double pourcentageDeBaisse;
+
+    @ManyToOne
+    private Telephone phone;
+
+    @ManyToOne
+    private Boutique boutique;
+}
