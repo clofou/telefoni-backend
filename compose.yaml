@@ -19,4 +19,4 @@ services:
       - 'MYSQL_DATABASE=telefoni-bdd'
       - 'MYSQL_PASSWORD=hello'
     ports:
-      - '3306'
+      - "3306:3306"
