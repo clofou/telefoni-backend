@@ -1,9 +1,7 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
-import org.bamappli.telefonibackend.Entity.Brand;
 import org.bamappli.telefonibackend.Entity.Tags;
-import org.bamappli.telefonibackend.Services.BrandService;
 import org.bamappli.telefonibackend.Services.TagsService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +11,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "tags")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class TagsController {
 
-    private final TagsService tagsService;
+    private TagsService tagsService;
 
     @PostMapping
     public Tags creer(@RequestBody Tags tags){

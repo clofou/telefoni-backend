@@ -13,9 +13,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "historiquewallet")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class HistoriqueWalletRechargeController {
 
-    private final HistoriqueWalletRechargeService historiqueWalletRechargeService;
+    private HistoriqueWalletRechargeService historiqueWalletRechargeService;
 
     @GetMapping
     public List<HistoriqueWalletRecharge> liste(){

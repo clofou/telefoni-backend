@@ -13,9 +13,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "discussion")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class DiscussionController {
 
-    private final DiscussionService discussionService;
+    private DiscussionService discussionService;
 
     @PostMapping
     public Discussion creer(@RequestBody Discussion discussion){

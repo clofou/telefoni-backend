@@ -18,9 +18,10 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dateDeTransaction;
-    private double montant;
-    private TransactionStatut statut;
+    private Date dateDeTransaction = new Date();
+    private Double montant;
+    @Enumerated(EnumType.STRING)
+    private TransactionStatut statut = TransactionStatut.NON_PAYER;
 
 
     @OneToOne

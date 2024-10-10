@@ -1,9 +1,7 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
-import org.bamappli.telefonibackend.Entity.Brand;
 import org.bamappli.telefonibackend.Entity.Stock;
-import org.bamappli.telefonibackend.Services.BrandService;
 import org.bamappli.telefonibackend.Services.StockService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +11,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "stock")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class StockController {
 
-    private final StockService stockService;
+    private StockService stockService;
 
     @PostMapping
     public Stock creer(@RequestBody Stock stock){

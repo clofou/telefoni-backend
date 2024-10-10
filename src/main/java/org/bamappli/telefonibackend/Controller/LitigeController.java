@@ -11,9 +11,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "litige")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class LitigeController {
 
-    private final LitigeService litigeService;
+    private LitigeService litigeService;
 
     @PostMapping
     public Litige creer(@RequestBody Litige litige){

@@ -12,9 +12,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "annonce")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class AnnonceController {
 
-    private final AnnonceService annonceService;
+    private AnnonceService annonceService;
 
     @PostMapping
     public Annonce creer(@RequestBody Annonce annonce){

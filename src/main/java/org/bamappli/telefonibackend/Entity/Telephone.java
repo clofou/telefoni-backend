@@ -36,6 +36,7 @@ public class Telephone {
     private Brand brand;
     @ManyToOne
     private Modele modele;
+
     @ManyToOne
-    Utilisateur utilisateur;
+    private Utilisateur utilisateur;
 }

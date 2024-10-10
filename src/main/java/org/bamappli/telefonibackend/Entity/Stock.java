@@ -16,7 +16,6 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer quantite;
-
     @ManyToOne
-    Telephone telephone;
+    private Telephone telephone;
 }

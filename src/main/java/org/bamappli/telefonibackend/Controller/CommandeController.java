@@ -1,21 +1,21 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
-import org.bamappli.telefonibackend.Entity.Brand;
+import org.bamappli.telefonibackend.DTO.CommandeDTO;
 import org.bamappli.telefonibackend.Entity.Commande;
-import org.bamappli.telefonibackend.Services.BrandService;
 import org.bamappli.telefonibackend.Services.CommandeService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(path = "commande")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class CommandeController {
 
-    private final CommandeService commandeService;
+    private CommandeService commandeService;
 
     @PostMapping
     public Commande creer(@RequestBody Commande commande){
@@ -23,8 +23,8 @@ public class CommandeController {
     }
 
     @GetMapping
-    public List<Commande> liste(){
-        return commandeService.recuperer();
+    public Stream<CommandeDTO> liste(){
+        return commandeService.recuperer1();
     }
 
     @GetMapping(path = "/{id}")

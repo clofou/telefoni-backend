@@ -11,9 +11,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "controller")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class ControllerController {
 
-    private final ControllerService controllerService;
+    private ControllerService controllerService;
 
     @PostMapping
     public Controller creer(@RequestBody Controller controller){

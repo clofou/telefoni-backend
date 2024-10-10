@@ -11,9 +11,10 @@ import java.util.stream.Stream;
 @RestController
 @RequestMapping(path = "boutique")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class BoutiqueController {
 
-    private final BoutiqueService boutiqueService;
+    private BoutiqueService boutiqueService;
 
     @PostMapping
     public Boutique creer(@RequestBody Boutique boutique){

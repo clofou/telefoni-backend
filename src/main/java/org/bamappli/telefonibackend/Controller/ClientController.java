@@ -3,17 +3,22 @@ package org.bamappli.telefonibackend.Controller;
 import lombok.AllArgsConstructor;
 import org.bamappli.telefonibackend.Entity.Client;
 import org.bamappli.telefonibackend.Services.ClientService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "client")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class ClientController {
 
     private ClientService clientService;
+
+    @GetMapping
+    public List<Client> tout(){
+        return clientService.recuperer();
+    }
 
     @PostMapping
     public Client creer(@RequestBody Client client){

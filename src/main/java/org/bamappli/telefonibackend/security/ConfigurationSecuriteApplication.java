@@ -5,10 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,9 +33,11 @@ public class ConfigurationSecuriteApplication{
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         return
                 httpSecurity
                         .csrf(AbstractHttpConfigurer::disable)
+                        .cors(Customizer.withDefaults())
                         .authorizeHttpRequests(
                                 authorize ->
                                         authorize
@@ -47,7 +51,7 @@ public class ConfigurationSecuriteApplication{
                                                 .requestMatchers(POST, "/boutique").hasRole("ADMIN")
                                                 .requestMatchers(PATCH, "/boutique").hasAnyRole("ADMIN", "BOUTIQUE")
 
-                                                .requestMatchers(GET, "/client/**").permitAll()
+                                                .requestMatchers(GET, "/client").permitAll()
                                                 .requestMatchers(POST, "/client").permitAll()
                                                 .requestMatchers(PATCH, "/client").hasAnyRole("ADMIN", "CLIENT")
 
@@ -75,7 +79,7 @@ public class ConfigurationSecuriteApplication{
                                                 .requestMatchers(DELETE, "/commande").hasAnyRole("CONTROLLER", "ADMIN")
 
                                                 .requestMatchers(GET, "/discussion/**").permitAll()
-                                                .requestMatchers(POST, "/discussion").permitAll()
+                                                .requestMatchers(POST, "/discussion").hasRole("CLIENT")
 
                                                 .requestMatchers(GET, "/historiquewallet").permitAll()
 
@@ -132,7 +136,7 @@ public class ConfigurationSecuriteApplication{
 
                                                 .requestMatchers(GET, "/transaction/**").permitAll()
                                                 .requestMatchers(POST, "/transaction").hasAnyRole("BOUTIQUE", "CLIENT")
-                                                .requestMatchers(PATCH, "/transaction").hasRole("ADMIN")
+                                                .requestMatchers(PATCH, "/transaction/**").hasAnyRole("ADMIN", "CLIENT")
 
                                                 .requestMatchers(GET, "/wallet/**").permitAll()
                                                 .requestMatchers(PATCH, "/wallet").hasRole("ADMIN")
@@ -144,6 +148,7 @@ public class ConfigurationSecuriteApplication{
 
                                 )
                         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+
                         .build();
     }
 

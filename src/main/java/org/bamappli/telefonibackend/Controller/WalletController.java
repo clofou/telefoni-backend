@@ -11,9 +11,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "wallet")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class WalletController{
 
-    private final WalletService walletService;
+    private WalletService walletService;
 
     @PostMapping
     public Wallet creer(@RequestBody Wallet wallet){

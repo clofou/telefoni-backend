@@ -15,9 +15,10 @@ import java.io.IOException;
 @RestController
 @RequestMapping(path = "photos")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class PhotosController {
 
-    private final PhotosService photosService;
+    private PhotosService photosService;
 
 
     @PostMapping("/upload")

@@ -17,12 +17,12 @@ public class Discussion {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user1")
-    private Utilisateur user1;
+    @JoinColumn(name = "acheteur")
+    private Utilisateur acheteur;
 
     @ManyToOne
-    @JoinColumn(name = "user2")
-    private Utilisateur user2;
+    @JoinColumn(name = "vendeur")
+    private Utilisateur vendeur;
 
     @ManyToOne
     private Annonce annonce;

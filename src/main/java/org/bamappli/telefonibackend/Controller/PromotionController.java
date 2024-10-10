@@ -12,9 +12,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "promotion")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class PromotionController {
 
-    private final PromotionService promotionService;
+    private PromotionService promotionService;
 
     @PostMapping
     public Promotion creer(@RequestBody Promotion promotion){

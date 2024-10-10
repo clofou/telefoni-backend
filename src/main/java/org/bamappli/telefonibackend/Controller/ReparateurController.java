@@ -12,9 +12,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "reparateur")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class ReparateurController {
 
-    private final ReparateurService reparateurService;
+    private ReparateurService reparateurService;
 
     @PostMapping
     public Reparateur creer(@RequestBody Reparateur reparateur){

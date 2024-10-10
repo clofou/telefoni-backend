@@ -1,14 +1,22 @@
 package org.bamappli.telefonibackend.Services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.bamappli.telefonibackend.DTO.PayerTransactionDTO;
 import org.bamappli.telefonibackend.Entity.Client;
 import org.bamappli.telefonibackend.Entity.Transaction;
 import org.bamappli.telefonibackend.Entity.Utilisateur;
+import org.bamappli.telefonibackend.Enum.AnnonceStatut;
+import org.bamappli.telefonibackend.Enum.TransactionStatut;
 import org.bamappli.telefonibackend.Repository.TransactionRepo;
+import org.bamappli.telefonibackend.Repository.UtilisateurRepo;
 import org.bamappli.telefonibackend.Utils.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -17,17 +25,20 @@ public class TransactionService implements CrudService<Long, Transaction>{
 
     private final UserService userService;
     private final TransactionRepo transactionRepo;
+    private final UtilisateurRepo utilisateurRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Transaction creer(Transaction transaction) {
-        Utilisateur utilisateur = userService.getCurrentUser();
-        transaction.setAcheteur((Client) utilisateur);
-        return transactionRepo.save(transaction);
+        Optional<Utilisateur> client = utilisateurRepo.findById(transaction.getAcheteur().getId());
+        if (client.isPresent()){
+            return transactionRepo.save(transaction);
+        }
+        throw new EntityNotFoundException("Utilisateur non trouve");
     }
 
     @Override
     public Transaction modifer(Long id, Transaction transaction) {
-        Utilisateur user = userService.getCurrentUser();
         Optional<Transaction> transaction1 = transactionRepo.findById(id);
 
         if (transaction1.isPresent()){
@@ -52,5 +63,32 @@ public class TransactionService implements CrudService<Long, Transaction>{
     @Override
     public void supprimer(Long id) {
         transactionRepo.deleteById(id);
+    }
+
+    public Transaction payer(Long id, String codeSecret) {
+        Utilisateur utilisateur = userService.getCurrentUser();
+        Optional<Transaction> transaction1 = transactionRepo.findById(id);
+        System.out.println(utilisateur.getCompte().getCodeSecret());
+        System.out.println(passwordEncoder.encode(codeSecret));
+        if (Objects.equals(passwordEncoder.encode(codeSecret), utilisateur.getCompte().getCodeSecret())){
+            if (transaction1.isPresent()){
+                Transaction transactionExist = transaction1.get();
+                if (transactionExist.getMontant() <= utilisateur.getCompte().getSolde()){
+                    transactionExist.setDateDeTransaction(new Date());
+                    transactionExist.setStatut(TransactionStatut.PAYER);
+                    transactionExist.getPhone().setStatut(AnnonceStatut.VENDU);
+                    return transactionRepo.save(transactionExist);
+                }else{
+                    throw new IllegalArgumentException("Solde Insuffisant");
+                }
+
+            }else{
+                throw new IllegalArgumentException("La Transaction n'existe pas ou l'utilisateur connecte n'as pas le droit d'effectuer cette action");
+            }
+        }else{
+            throw new IllegalArgumentException("Votre code est errone");
+        }
+
+
     }
 }

@@ -11,6 +11,7 @@ import org.bamappli.telefonibackend.Repository.RoleRepo;
 import org.bamappli.telefonibackend.Repository.UtilisateurRepo;
 import org.bamappli.telefonibackend.Repository.WalletRepo;
 import org.bamappli.telefonibackend.Utils.UtilService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +19,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
-public class AdminService implements CrudService<Long, Admin> {
+public class AdminService{
 
-    private final AdminRepo adminRepo;
-    private final RoleRepo roleRepo;
-    private final UtilisateurRepo utilisateurRepo;
-    private final PasswordEncoder passwordEncoder;
-    private final WalletService walletService;
+    @Autowired
+    private AdminRepo adminRepo;
+    @Autowired
+    private RoleRepo roleRepo;
+    @Autowired
+    private UtilisateurRepo utilisateurRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private WalletService walletService;
 
-    @Override
-    @Transactional
     public Admin creer(Admin admin) {
         // Verifier si le mail et le mot de passe sont valides
         UtilService.checkEmailAndPassword(admin.getEmail(), admin.getMotDePasse());
@@ -55,8 +58,6 @@ public class AdminService implements CrudService<Long, Admin> {
 
         return adminRepo.save(admin);
     }
-
-    @Override
     public Admin modifer(Long id, Admin admin){
         Optional<Admin> admin1 = adminRepo.findById(id);
         if (admin1.isPresent()){
@@ -68,17 +69,16 @@ public class AdminService implements CrudService<Long, Admin> {
         return null;
     }
 
-    @Override
     public Optional<Admin> trouver(Long id){
         return adminRepo.findById(id);
     }
 
-    @Override
+
     public List<Admin> recuperer(){
         return adminRepo.findAll();
     }
 
-    @Override
+
     public void supprimer(Long id){
         Optional<Admin> admin1 = adminRepo.findById(id);
         admin1.ifPresent(adminRepo::delete);

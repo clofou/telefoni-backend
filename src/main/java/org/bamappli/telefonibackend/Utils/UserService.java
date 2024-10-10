@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final UtilisateurRepo utilisateurRepo;
+    private UtilisateurRepo utilisateurRepo;
 
     public Utilisateur getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

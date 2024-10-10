@@ -1,9 +1,7 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
-import org.bamappli.telefonibackend.Entity.Brand;
 import org.bamappli.telefonibackend.Entity.Reparation;
-import org.bamappli.telefonibackend.Services.BrandService;
 import org.bamappli.telefonibackend.Services.ReparationService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +11,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "reparation")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class ReparationController {
-    private final ReparationService reparationService;
+    private ReparationService reparationService;
 
     @PostMapping
     public Reparation creer(@RequestBody Reparation reparation){

@@ -1,7 +1,9 @@
 package org.bamappli.telefonibackend.Services;
 
 import lombok.AllArgsConstructor;
+import org.bamappli.telefonibackend.DTO.CommandeDTO;
 import org.bamappli.telefonibackend.Entity.*;
+import org.bamappli.telefonibackend.Mapper.CommandeDTOMapper;
 import org.bamappli.telefonibackend.Repository.CommandeRepo;
 import org.bamappli.telefonibackend.Utils.UserService;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +19,7 @@ public class CommandeService implements CrudService<Long, Commande> {
 
     private final UserService userService;
     private final CommandeRepo commandeRepo;
+    private final CommandeDTOMapper commandeDTOMapper;
 
 
     @Override
@@ -47,6 +51,10 @@ public class CommandeService implements CrudService<Long, Commande> {
     @Override
     public List<Commande> recuperer() {
         return commandeRepo.findAll();
+    }
+
+    public Stream<CommandeDTO> recuperer1() {
+        return commandeRepo.findAll().stream().map(commandeDTOMapper);
     }
 
     @Override

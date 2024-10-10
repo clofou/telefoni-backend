@@ -1,9 +1,7 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
-import org.bamappli.telefonibackend.Entity.Annonce;
 import org.bamappli.telefonibackend.Entity.Brand;
-import org.bamappli.telefonibackend.Services.AnnonceService;
 import org.bamappli.telefonibackend.Services.BrandService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +11,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "brand")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class BrandController {
 
-    private final BrandService brandService;
+    private BrandService brandService;
 
     @PostMapping
     public Brand creer(@RequestBody Brand brand){

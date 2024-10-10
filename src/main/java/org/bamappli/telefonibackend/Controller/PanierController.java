@@ -13,9 +13,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "panier")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class PanierController {
 
-    private final PanierService panierService;
+    private PanierService panierService;
 
     @GetMapping
     public List<Panier> liste(){

@@ -1,10 +1,22 @@
 services:
-  mysql:
-    image: 'mysql:latest'
+  springboot-app:
+    image: telefoni-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/telefoni-bdd
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: hello
+    depends_on:
+      - mysql
+
+  mysql:
+    image: 'mysql:8.0'
+    environment:
+      - 'MYSQL_DATABASE=telefoni-bdd'
+      - 'MYSQL_PASSWORD=hello'
     ports:
       - '3306'

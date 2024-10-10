@@ -1,6 +1,7 @@
 package org.bamappli.telefonibackend.Enum;
 
 public enum TransactionStatut {
-    CONFIRMER,
+    NON_PAYER,
+    PAYER,
     ANNULER
 }

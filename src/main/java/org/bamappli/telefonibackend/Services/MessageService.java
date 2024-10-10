@@ -91,6 +91,7 @@ public class MessageService implements CrudService<Long, Message>{
 
     public Message creerMessage(MessageRequestDTO dto) throws IOException {
         Message message = new Message();
+        message.setDiscussion(dto.getDiscussion());
 
         // Si un fichier est présent dans la requête
         if (dto.getFile() != null && !dto.getFile().isEmpty()) {

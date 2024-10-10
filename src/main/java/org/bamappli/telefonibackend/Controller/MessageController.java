@@ -2,23 +2,21 @@ package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
 import org.bamappli.telefonibackend.DTO.MessageRequestDTO;
-import org.bamappli.telefonibackend.Entity.Commande;
 import org.bamappli.telefonibackend.Entity.Message;
-import org.bamappli.telefonibackend.Services.CommandeService;
 import org.bamappli.telefonibackend.Services.MessageService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "message")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class MessageController {
 
-    private final MessageService messageService;
+    private MessageService messageService;
 
     @PostMapping
     public Message creer(@RequestBody MessageRequestDTO message) throws IOException {
