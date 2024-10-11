@@ -6,6 +6,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
+import org.bamappli.telefonibackend.Entity.Utilisateur;
+import org.bamappli.telefonibackend.Repository.UtilisateurRepo;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,12 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     private final UsersDetailsServiceImpl utilisateurService;
+    private final UtilisateurRepo utilisateurRepo;
     
     public Map<String, String> generate(String username) {
         UserDetails utilisateur = this.utilisateurService.loadUserByUsername(username);
-        return this.generateJwt(utilisateur);
+        Utilisateur user = utilisateurRepo.findByEmail(username);
+        return Map.of("bearer", this.generateJwt(utilisateur), "role", user.getRole().getNom(), "nom", user.getNom());
     }
 
     public String extractUsername(String token) {
@@ -50,7 +54,7 @@ public class JwtService {
                 .getBody();
     }
 
-    private Map<String, String> generateJwt(UserDetails utilisateur) {
+    private String generateJwt(UserDetails utilisateur) {
         final long currentTime = System.currentTimeMillis();
         final long expirationTime = currentTime + 30 * 60 * 1000;
 
@@ -67,7 +71,7 @@ public class JwtService {
                 .setClaims(claims)
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
-        return Map.of("bearer", bearer);
+        return bearer;
     }
 
     private Key getKey() {
