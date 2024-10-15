@@ -2,8 +2,11 @@ package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
 import org.bamappli.telefonibackend.DTO.AuthentificationDTO;
+import org.bamappli.telefonibackend.DTO.UtilisateurDTO;
 import org.bamappli.telefonibackend.Entity.Client;
+import org.bamappli.telefonibackend.Mapper.UserDTOMapper;
 import org.bamappli.telefonibackend.Services.ClientService;
+import org.bamappli.telefonibackend.Utils.UserService;
 import org.bamappli.telefonibackend.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping
@@ -21,6 +25,8 @@ public class UtilisateurController {
     private JwtService jwtService;
     private AuthenticationManager authenticationManager;
     private ClientService clientService;
+    private UserService userService;
+    private UserDTOMapper userDTOMapper;
 
     @PostMapping(path = "connexion")
     public Map<String, String> seConnecter(@RequestBody AuthentificationDTO auth) {
@@ -39,6 +45,11 @@ public class UtilisateurController {
         client.setEmail(dto.getEmail());
         client.setMotDePasse(dto.getMotDePasse());
         return clientService.creer(client);
+    }
+
+    @GetMapping(path = "user/current")
+    public UtilisateurDTO getCurrentUserInfo(){
+        return userDTOMapper.apply(userService.getCurrentUser());
     }
 
 }

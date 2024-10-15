@@ -22,6 +22,7 @@ public abstract class Utilisateur {
     private String motDePasse;
     private String numeroDeTelephone;
     private String adresse;
+    private String photoUrl;
 
     @Enumerated(EnumType.STRING)
     private Grade grade;

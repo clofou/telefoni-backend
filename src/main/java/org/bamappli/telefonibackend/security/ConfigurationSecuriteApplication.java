@@ -140,6 +140,7 @@ public class ConfigurationSecuriteApplication{
 
                                                 .requestMatchers(GET, "/wallet/**").permitAll()
                                                 .requestMatchers(PATCH, "/wallet").hasRole("ADMIN")
+                                                .requestMatchers(GET, "/user/current").hasAnyRole("ADMIN", "BOUTIQUE", "CLIENT", "REPARATEUR", "CONTROLLER")
 
                                                 .anyRequest().authenticated()
                         )
