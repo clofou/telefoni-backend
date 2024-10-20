@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bamappli.telefonibackend.Enum.Grade;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Utilisateur {
+public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +24,9 @@ public abstract class Utilisateur {
     private String motDePasse;
     private String numeroDeTelephone;
     private String adresse;
+    private int points;
     private String photoUrl;
+    private Date dateCreation = new Date();
 
     @Enumerated(EnumType.STRING)
     private Grade grade;
@@ -32,6 +36,19 @@ public abstract class Utilisateur {
 
     @OneToOne
     private Wallet compte;
+
+    // Méthode pour mettre à jour le grade en fonction des points
+    public void reevaluerGrade() {
+        if (points >= 1500) {
+            this.grade = Grade.VIP;
+        } else if (points >= 800) {
+            this.grade = Grade.PRO_PLUS;
+        } else if (points >= 300) {
+            this.grade = Grade.PRO;
+        } else {
+            this.grade = Grade.BASIC; // Assuming BASIC is a lower rank
+        }
+    }
 
 
 }

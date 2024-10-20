@@ -1,6 +1,7 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
+import org.bamappli.telefonibackend.DTO.AnnonceDTO;
 import org.bamappli.telefonibackend.Entity.Annonce;
 import org.bamappli.telefonibackend.Entity.Controller;
 import org.bamappli.telefonibackend.Services.AnnonceService;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(path = "annonce")
@@ -25,6 +27,11 @@ public class AnnonceController {
     @GetMapping
     public List<Annonce> liste(){
         return annonceService.recuperer();
+    }
+
+    @GetMapping("/admin")
+    public Stream<AnnonceDTO> liste1(){
+        return annonceService.recuperer1();
     }
 
     @GetMapping(path = "/{id}")

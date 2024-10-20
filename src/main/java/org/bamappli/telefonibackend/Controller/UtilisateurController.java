@@ -30,9 +30,11 @@ public class UtilisateurController {
 
     @PostMapping(path = "connexion")
     public Map<String, String> seConnecter(@RequestBody AuthentificationDTO auth) {
+        System.out.println("booo");
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(auth.getEmail(), auth.getMotDePasse())
         );
+        System.out.println("authentication.getPrincipal()");
         if (authentication.isAuthenticated()){
             return jwtService.generate(auth.getEmail());
         }

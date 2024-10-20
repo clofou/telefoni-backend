@@ -1,11 +1,14 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
+import org.bamappli.telefonibackend.DTO.ClientSalesDTO;
 import org.bamappli.telefonibackend.Entity.Client;
 import org.bamappli.telefonibackend.Services.ClientService;
+import org.bamappli.telefonibackend.Services.UtilisateurService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "client")
@@ -14,10 +17,21 @@ import java.util.List;
 public class ClientController {
 
     private ClientService clientService;
+    private UtilisateurService utilisateurService;
 
     @GetMapping
     public List<Client> tout(){
         return clientService.recuperer();
+    }
+
+    @GetMapping(path = "new")
+    public Map<String, Object> toutNombre(){
+        return utilisateurService.getNouveauxUtilisateursAvecPourcentage();
+    }
+
+    @GetMapping(path = "order")
+    public List<ClientSalesDTO> toutOrdre(){
+        return clientService.getClientsOrderedBySales();
     }
 
     @PostMapping

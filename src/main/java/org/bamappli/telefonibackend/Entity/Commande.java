@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bamappli.telefonibackend.Enum.CommandeStatut;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -16,7 +18,16 @@ public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private CommandeStatut statut;
+    @Enumerated(EnumType.STRING)
+    private CommandeStatut statutAcheteur = CommandeStatut.EN_ATTENTE; // Statut côté acheteur
+
+    @Enumerated(EnumType.STRING)
+    private CommandeStatut statutVendeur = CommandeStatut.EN_ATTENTE;  // Statut côté vendeur
+
+    @Enumerated(EnumType.STRING)
+    private CommandeStatut statutController = CommandeStatut.EN_ATTENTE; // Statut côté controller
+
+    private Date dateLivraison;
 
     @ManyToOne
     private Transaction transaction;

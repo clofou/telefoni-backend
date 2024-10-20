@@ -1,7 +1,7 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
-import org.bamappli.telefonibackend.Entity.Controller;
+import org.bamappli.telefonibackend.DTO.ReparateurReparationsDTO;
 import org.bamappli.telefonibackend.Entity.Reparateur;
 import org.bamappli.telefonibackend.Services.ReparateurService;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +25,11 @@ public class ReparateurController {
     @GetMapping
     public List<Reparateur> liste(){
         return reparateurService.recuperer();
+    }
+
+    @GetMapping(path = "order")
+    public List<ReparateurReparationsDTO> listeOrder(){
+        return reparateurService.getReparateursOrderedByReparations();
     }
 
     @GetMapping(path = "/{id}")

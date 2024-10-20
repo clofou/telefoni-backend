@@ -1,6 +1,7 @@
 package org.bamappli.telefonibackend.Services;
 
 import lombok.AllArgsConstructor;
+import org.bamappli.telefonibackend.DTO.ReparateurReparationsDTO;
 import org.bamappli.telefonibackend.Entity.*;
 import org.bamappli.telefonibackend.Repository.ReparateurRepo;
 import org.bamappli.telefonibackend.Repository.RoleRepo;
@@ -11,6 +12,7 @@ import org.bamappli.telefonibackend.Utils.UtilService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -86,5 +88,24 @@ public class ReparateurService implements CrudService<Long, Reparateur>{
     public void supprimer(Long id) {
         Optional<Reparateur> reparateur = reparateurRepo.findById(id);
         reparateur.ifPresent(reparateurRepo::delete);
+    }
+
+    public List<ReparateurReparationsDTO> getReparateursOrderedByReparations() {
+        List<Object[]> results = reparateurRepo.findReparateursOrderedByReparations();
+        List<ReparateurReparationsDTO> reparateurs = new ArrayList<>();
+
+        for (Object[] result : results) {
+            Reparateur reparateur = (Reparateur) result[0];
+            Long nombreReparations = (Long) result[1];
+
+            ReparateurReparationsDTO dto = new ReparateurReparationsDTO();
+            dto.setNom(reparateur.getNom());
+            dto.setEmail(reparateur.getEmail());
+            dto.setNombreDeReparations(nombreReparations);
+
+            reparateurs.add(dto);
+        }
+
+        return reparateurs;
     }
 }

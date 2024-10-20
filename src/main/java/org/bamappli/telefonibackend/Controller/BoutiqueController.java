@@ -2,10 +2,12 @@ package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
 import org.bamappli.telefonibackend.DTO.BoutiqueResponseDTO;
+import org.bamappli.telefonibackend.DTO.BoutiqueSalesDTO;
 import org.bamappli.telefonibackend.Entity.Boutique;
 import org.bamappli.telefonibackend.Services.BoutiqueService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 @RestController
@@ -29,5 +31,10 @@ public class BoutiqueController {
     @GetMapping
     public Stream<BoutiqueResponseDTO> recuperer(){
         return boutiqueService.recupererDTO();
+    }
+
+    @GetMapping(path = "order")
+    public List<BoutiqueSalesDTO> recupererOrder(){
+        return boutiqueService.getBoutiquesOrderedBySales();
     }
 }

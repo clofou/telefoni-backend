@@ -25,7 +25,7 @@ public class JwtService {
     public Map<String, String> generate(String username) {
         UserDetails utilisateur = this.utilisateurService.loadUserByUsername(username);
         Utilisateur user = utilisateurRepo.findByEmail(username);
-        return Map.of("bearer", this.generateJwt(utilisateur), "role", user.getRole().getNom(), "nom", user.getNom());
+        return Map.of("bearer", this.generateJwt(utilisateur), "role", user.getRole().getNom());
     }
 
     public String extractUsername(String token) {

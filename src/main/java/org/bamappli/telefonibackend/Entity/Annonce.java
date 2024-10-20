@@ -17,7 +17,11 @@ public class Annonce {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    private AnnonceStatut statut = AnnonceStatut.EN_VENTE;
+    private AnnonceStatut statut = AnnonceStatut.EN_ATTENTE_VALIDATION;
+    // Ajout d'un attribut pour spécifier la garantie (nombre de jours)
+    private Integer dateDeGarantit = 2;
+    // Nouvel attribut pour indiquer si l'annonce a été validée par un contrôleur
+    private Boolean valideeParController = false;
 
     @ManyToOne
     private Telephone phone;

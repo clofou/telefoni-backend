@@ -3,6 +3,7 @@ package org.bamappli.telefonibackend.Services;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.bamappli.telefonibackend.DTO.BoutiqueResponseDTO;
+import org.bamappli.telefonibackend.DTO.BoutiqueSalesDTO;
 import org.bamappli.telefonibackend.Entity.*;
 import org.bamappli.telefonibackend.Mapper.BoutiqueDTOMapper;
 import org.bamappli.telefonibackend.Repository.BoutiqueRepo;
@@ -14,6 +15,7 @@ import org.bamappli.telefonibackend.Utils.UtilService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -108,5 +110,24 @@ public class BoutiqueService implements CrudService<Long, Boutique> {
         }else{
             throw new IllegalArgumentException("La Boutique mentionne n'existe pas");
         }
+    }
+
+    public List<BoutiqueSalesDTO> getBoutiquesOrderedBySales() {
+        List<Object[]> results = boutiqueRepo.findBoutiquesOrderedBySales();
+        List<BoutiqueSalesDTO> boutiques = new ArrayList<>();
+
+        for (Object[] result : results) {
+            Boutique boutique = (Boutique) result[0];
+            Long nombreVentes = (Long) result[1];
+
+            BoutiqueSalesDTO dto = new BoutiqueSalesDTO();
+            dto.setNom(boutique.getNom());
+            dto.setEmail(boutique.getEmail());
+            dto.setNombreDeVentes(nombreVentes);
+
+            boutiques.add(dto);
+        }
+
+        return boutiques;
     }
 }
