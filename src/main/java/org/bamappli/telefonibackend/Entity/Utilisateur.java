@@ -27,6 +27,7 @@ public abstract class Utilisateur {
     private String photoUrl;
     private Date dateCreation = new Date();
     private String fcmToken;
+    private int points;
     private String verificationCode; // Code de vérification
     private boolean isActive = false;
 
