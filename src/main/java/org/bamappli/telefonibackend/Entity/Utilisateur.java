@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bamappli.telefonibackend.Enum.Grade;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -23,9 +25,13 @@ public abstract class Utilisateur {
     private String numeroDeTelephone;
     private String adresse;
     private String photoUrl;
+    private Date dateCreation = new Date();
+    private String fcmToken;
+    private String verificationCode; // Code de vérification
+    private boolean isActive = false;
 
     @Enumerated(EnumType.STRING)
-    private Grade grade;
+    private Grade grade = Grade.BASIC;
 
     @ManyToOne
     private Role role;

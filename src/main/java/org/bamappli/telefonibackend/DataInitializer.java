@@ -38,6 +38,7 @@ public class DataInitializer implements CommandLineRunner {
 
         Admin admin = new Admin();
         admin.setEmail("fakoro88@gmail.com");
+        admin.setActive(true);
         admin.setMotDePasse(passwordEncoder.encode("090909"));
         admin.setNom("Fakoro");
 

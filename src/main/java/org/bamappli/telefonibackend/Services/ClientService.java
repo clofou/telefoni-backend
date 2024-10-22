@@ -61,7 +61,7 @@ public class ClientService implements CrudService<Long, Client> {
     @Override
     public Client modifer(Long id, Client client) {
         Utilisateur user = userService.getCurrentUser();
-        if (UtilService.isValidPassword(client.getMotDePasse())){
+        if (client.getMotDePasse() != null && UtilService.isValidPassword(client.getMotDePasse())){
             throw new IllegalArgumentException("Le Mot de passe doit comporter plus de 6 caracteres");
         }
         Optional<Client> client1 = clientRepo.findById(id);

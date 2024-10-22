@@ -25,7 +25,10 @@ public class JwtService {
     public Map<String, String> generate(String username) {
         UserDetails utilisateur = this.utilisateurService.loadUserByUsername(username);
         Utilisateur user = utilisateurRepo.findByEmail(username);
-        return Map.of("bearer", this.generateJwt(utilisateur), "role", user.getRole().getNom(), "nom", user.getNom());
+        if (!user.isActive()) {
+            throw new RuntimeException("Compte non activé. Veuillez vérifier votre email.");
+        }
+        return Map.of("bearer", this.generateJwt(utilisateur), "role", user.getRole().getNom());
     }
 
     public String extractUsername(String token) {
@@ -56,7 +59,7 @@ public class JwtService {
 
     private String generateJwt(UserDetails utilisateur) {
         final long currentTime = System.currentTimeMillis();
-        final long expirationTime = currentTime + 30 * 60 * 1000;
+        final long expirationTime = currentTime + 160 * 60 * 1000;
 
         final Map<String, Object> claims = Map.of(
                 "nom", utilisateur.getUsername(),

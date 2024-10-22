@@ -49,6 +49,11 @@ public class DiscussionService implements CrudService<Long, Discussion> {
         return discussionRepo.findAll();
     }
 
+    public List<Discussion> recupererCurrentUser() {
+        Utilisateur currentUser = userService.getCurrentUser();
+        return discussionRepo.findByAcheteurOrVendeur(currentUser, currentUser);
+    }
+
     @Override
     public void supprimer(Long aLong) {
 

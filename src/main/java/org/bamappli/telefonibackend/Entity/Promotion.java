@@ -16,6 +16,7 @@ public class Promotion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double pourcentageDeBaisse;
+    private String promotionDescription;
 
     @ManyToOne
     private Telephone phone;

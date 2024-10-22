@@ -28,6 +28,11 @@ public class DiscussionController {
         return discussionService.recuperer();
     }
 
+    @GetMapping(path = "current")
+    public List<Discussion> liste1(){
+        return discussionService.recupererCurrentUser();
+    }
+
     @GetMapping(path = "/{id}")
     public Optional<Discussion> un(@PathVariable Long id){
         return discussionService.trouver(id);

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.bamappli.telefonibackend.DTO.PayerTransactionDTO;
 import org.bamappli.telefonibackend.Entity.Client;
+import org.bamappli.telefonibackend.Entity.Commande;
 import org.bamappli.telefonibackend.Entity.Transaction;
 import org.bamappli.telefonibackend.Entity.Utilisateur;
 import org.bamappli.telefonibackend.Enum.AnnonceStatut;
@@ -27,6 +28,7 @@ public class TransactionService implements CrudService<Long, Transaction>{
     private final TransactionRepo transactionRepo;
     private final UtilisateurRepo utilisateurRepo;
     private final PasswordEncoder passwordEncoder;
+    private final CommandeService commandeService;
 
     @Override
     public Transaction creer(Transaction transaction) {
