@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Boutique extends Utilisateur {
     private boolean accountLocked;
+    private String description;
     @ManyToOne
     private Admin admin;
 }

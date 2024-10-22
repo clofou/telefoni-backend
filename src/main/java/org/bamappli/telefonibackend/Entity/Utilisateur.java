@@ -25,7 +25,7 @@ public abstract class Utilisateur {
     private String photoUrl;
 
     @Enumerated(EnumType.STRING)
-    private Grade grade;
+    private Grade grade = Grade.BASIC;
 
     @ManyToOne
     private Role role;

@@ -26,7 +26,7 @@ public class Telephone {
     private String description;
     private Double prix;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Tags> tagsList;
 
     @OneToMany
