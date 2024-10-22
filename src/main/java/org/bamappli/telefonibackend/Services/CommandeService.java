@@ -31,12 +31,13 @@ public class CommandeService implements CrudService<Long, Commande> {
 
     @Override
     public Commande modifer(Long id, Commande commande) {
-        Utilisateur user = userService.getCurrentUser();
         Optional<Commande> commande1 = commandeRepo.findById(id);
 
-        if (commande1.isPresent() && Objects.equals(user.getId(), commande1.get().getController().getId())){
+        if (commande1.isPresent()){
             Commande brandExist = commande1.get();
-            if (commande.getStatut() != null) brandExist.setStatut(commande.getStatut());
+            if (commande.getStatutAcheteur() != null) brandExist.setStatutAcheteur(commande.getStatutAcheteur());
+            if (commande.getController() != null) brandExist.setStatutController(commande.getStatutController());
+            if (commande.getStatutVendeur() != null) brandExist.setStatutVendeur(commande.getStatutVendeur());
             return commandeRepo.save(brandExist);
         }else{
             throw new IllegalArgumentException("La Commande n'existe pas ou l'utilisateur connecte n'as pas le droit d'effectuer cette action");
