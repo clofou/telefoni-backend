@@ -6,7 +6,10 @@ import com.google.firebase.FirebaseOptions;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {
@@ -14,8 +17,12 @@ public class FirebaseConfig {
     @PostConstruct
     public void initialize() {
         try {
-            FileInputStream serviceAccount =
-                    new FileInputStream("C:\\Users\\fakoro.traore\\Downloads\\telefoni-notif-firebase-adminsdk-vyo4q-5f09b72a35.json");
+            String firebaseConfig = System.getenv("FIREBASE_CONFIG");
+            if (firebaseConfig == null) {
+                throw new IllegalStateException("FIREBASE_CONFIG environment variable not set.");
+            }
+
+            InputStream serviceAccount = new ByteArrayInputStream(firebaseConfig.getBytes(StandardCharsets.UTF_8));
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
