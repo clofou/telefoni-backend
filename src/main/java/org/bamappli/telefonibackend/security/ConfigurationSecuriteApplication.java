@@ -43,6 +43,8 @@ public class ConfigurationSecuriteApplication{
                                         authorize
                                                 .requestMatchers(POST,"/inscription").permitAll()
                                                 .requestMatchers(POST,"/connexion").permitAll()
+                                                .requestMatchers(POST,"/verify").permitAll()
+                                                .requestMatchers(POST,"/update-token").permitAll()
 
                                                 .requestMatchers(GET, "/admin/**").hasRole("ADMIN")
                                                 .requestMatchers(POST, "/admin").hasRole("ADMIN")

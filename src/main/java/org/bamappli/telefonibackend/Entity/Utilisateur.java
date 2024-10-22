@@ -27,6 +27,9 @@ public class Utilisateur {
     private int points;
     private String photoUrl;
     private Date dateCreation = new Date();
+    private String fcmToken;
+    private String verificationCode; // Code de vérification
+    private boolean isActive = false;
 
     @Enumerated(EnumType.STRING)
     private Grade grade = Grade.BASIC;

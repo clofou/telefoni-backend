@@ -25,12 +25,29 @@ public class MessageService implements CrudService<Long, Message>{
 
     private final MessageRepo messageRepo;
     private final UserService userService;
+    private final NotificationService notificationService;
 
     @Override
     public Message creer(Message message) {
         Utilisateur utilisateur = userService.getCurrentUser();
         message.setUtilisateur(utilisateur);
-        return messageRepo.save(message);
+
+        Message savedMessage = messageRepo.save(message);
+
+        // Get the receiver's FCM token
+        Utilisateur receiver = messageRepo.findReceiver(savedMessage.getId());
+
+        if (receiver != null && receiver.getFcmToken() != null) {
+            // Send the notification
+            notificationService.sendPushNotification(
+                    receiver.getFcmToken(),
+                    "Nouveau Message",
+                    "Vous avez reçu un message de " + message.getUtilisateur().getNom()
+            );
+        }
+
+        return savedMessage;
+
     }
 
     @Override

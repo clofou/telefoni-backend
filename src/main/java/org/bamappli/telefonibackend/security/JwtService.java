@@ -25,6 +25,9 @@ public class JwtService {
     public Map<String, String> generate(String username) {
         UserDetails utilisateur = this.utilisateurService.loadUserByUsername(username);
         Utilisateur user = utilisateurRepo.findByEmail(username);
+        if (!user.isActive()) {
+            throw new RuntimeException("Compte non activé. Veuillez vérifier votre email.");
+        }
         return Map.of("bearer", this.generateJwt(utilisateur), "role", user.getRole().getNom());
     }
 
