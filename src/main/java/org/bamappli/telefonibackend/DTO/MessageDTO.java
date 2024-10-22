@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VenteTypeDTO {
-    private int mois; // 1 = Janvier, 2 = Février, etc.
-    private long ventesOccasion;
-    private long ventesNeuf;
-
+public class MessageDTO {
+    private Long id;
+    private String message;
+    private String messageType;
+    private String utilisateur;
+    // getters and setters
 }

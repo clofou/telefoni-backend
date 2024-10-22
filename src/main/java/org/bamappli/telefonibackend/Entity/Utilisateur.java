@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Utilisateur {
+public abstract class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,6 @@ public class Utilisateur {
     private String motDePasse;
     private String numeroDeTelephone;
     private String adresse;
-    private int points;
     private String photoUrl;
     private Date dateCreation = new Date();
     private String fcmToken;
@@ -39,19 +38,6 @@ public class Utilisateur {
 
     @OneToOne
     private Wallet compte;
-
-    // Méthode pour mettre à jour le grade en fonction des points
-    public void reevaluerGrade() {
-        if (points >= 1500) {
-            this.grade = Grade.VIP;
-        } else if (points >= 800) {
-            this.grade = Grade.PRO_PLUS;
-        } else if (points >= 300) {
-            this.grade = Grade.PRO;
-        } else {
-            this.grade = Grade.BASIC; // Assuming BASIC is a lower rank
-        }
-    }
 
 
 }

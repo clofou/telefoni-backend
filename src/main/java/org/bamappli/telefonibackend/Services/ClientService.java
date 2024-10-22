@@ -1,16 +1,13 @@
 package org.bamappli.telefonibackend.Services;
 
 import lombok.AllArgsConstructor;
-import org.bamappli.telefonibackend.DTO.ClientSalesDTO;
 import org.bamappli.telefonibackend.Entity.*;
-import org.bamappli.telefonibackend.Enum.AnnonceStatut;
 import org.bamappli.telefonibackend.Repository.*;
 import org.bamappli.telefonibackend.Utils.UserService;
 import org.bamappli.telefonibackend.Utils.UtilService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -94,24 +91,5 @@ public class ClientService implements CrudService<Long, Client> {
     public void supprimer(Long id) {
         Optional<Client> client = clientRepo.findById(id);
         client.ifPresent(clientRepo::delete);
-    }
-
-    public List<ClientSalesDTO> getClientsOrderedBySales() {
-        List<Object[]> results = clientRepo.findClientsOrderedBySales(AnnonceStatut.VENDU);
-        List<ClientSalesDTO> clients = new ArrayList<>();
-
-        for (Object[] result : results) {
-            Client client = (Client) result[0];
-            Long nombreVentes = (Long) result[1];
-
-            ClientSalesDTO dto = new ClientSalesDTO();
-            dto.setNom(client.getNom());
-            dto.setEmail(client.getEmail());
-            dto.setNombreDeVentes(nombreVentes);
-
-            clients.add(dto);
-        }
-
-        return clients;
     }
 }
