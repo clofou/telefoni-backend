@@ -29,7 +29,7 @@ public class Utilisateur {
     private Date dateCreation = new Date();
 
     @Enumerated(EnumType.STRING)
-    private Grade grade;
+    private Grade grade = Grade.BASIC;
 
     @ManyToOne
     private Role role;

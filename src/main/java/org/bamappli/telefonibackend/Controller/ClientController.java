@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "client")
@@ -32,6 +33,11 @@ public class ClientController {
     @GetMapping(path = "order")
     public List<ClientSalesDTO> toutOrdre(){
         return clientService.getClientsOrderedBySales();
+    }
+
+    @PatchMapping(path = "{id}")
+    public Client modifier(@PathVariable Long id, @RequestBody Client client){
+        return clientService.modifer(id, client);
     }
 
     @PostMapping
