@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import org.bamappli.telefonibackend.DTO.PayerTransactionDTO;
 import org.bamappli.telefonibackend.Entity.Transaction;
 import org.bamappli.telefonibackend.Services.TransactionService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -39,19 +37,13 @@ public class TransactionController {
         return transactionService.modifer(id,transaction);
     }
 
-    @PatchMapping(path = "/payer/{id}/{codesecret}")
-    public Transaction modifier1(@PathVariable Long id, @PathVariable String codesecret){
-        return transactionService.payer(id,codesecret );
+    @PatchMapping(path = "/payer/{id}")
+    public Transaction modifier1(@PathVariable Long id, @RequestBody String codeSecret){
+        return transactionService.payer(id,codeSecret );
     }
 
     @DeleteMapping(path = "/{id}")
     public void supprimer(@PathVariable Long id){
         transactionService.supprimer(id);
-    }
-
-    @GetMapping("/total-montant-ventes")
-    public ResponseEntity<Map<String, Object>> getTotalMontantVentes() {
-        Map<String, Object> result = transactionService.getTotalMontantVentes();
-        return ResponseEntity.ok(result);
     }
 }

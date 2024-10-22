@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bamappli.telefonibackend.Enum.ReparationStatut;
 
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,11 +19,9 @@ public class Reparation{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descriptionProbleme;
-    @Enumerated(EnumType.STRING)
     private ReparationStatut statut;
     private Integer nombreDeTelephoneReparer;
     private Double nombreTotalDeTelephone;
-    private Date dateReparation = new Date();
 
     @OneToMany
     private List<Telephone> telephoneList;
