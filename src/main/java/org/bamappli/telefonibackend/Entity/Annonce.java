@@ -17,7 +17,7 @@ public class Annonce {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    private AnnonceStatut statut = AnnonceStatut.EN_VENTE;
+    private AnnonceStatut statut = AnnonceStatut.EN_ATTENTE_DE_VALIDATION;
 
     @ManyToOne
     private Telephone phone;

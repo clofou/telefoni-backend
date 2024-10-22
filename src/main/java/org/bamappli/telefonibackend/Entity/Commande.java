@@ -1,5 +1,6 @@
 package org.bamappli.telefonibackend.Entity;
 
+import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,10 @@ public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private CommandeStatut statut;
+    private CommandeStatut statutVendeur;
+    private CommandeStatut statutAcheteur;
+    private CommandeStatut statutController;
+    private DateTime dateLivraison;
 
     @ManyToOne
     private Transaction transaction;
