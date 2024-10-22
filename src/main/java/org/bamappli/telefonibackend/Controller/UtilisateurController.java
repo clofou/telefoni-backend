@@ -1,10 +1,7 @@
 package org.bamappli.telefonibackend.Controller;
 
 import lombok.AllArgsConstructor;
-import org.bamappli.telefonibackend.DTO.AuthentificationDTO;
-import org.bamappli.telefonibackend.DTO.InscriptionDTO;
-import org.bamappli.telefonibackend.DTO.UtilisateurDTO;
-import org.bamappli.telefonibackend.DTO.VerifyCodeDTO;
+import org.bamappli.telefonibackend.DTO.*;
 import org.bamappli.telefonibackend.Entity.Client;
 import org.bamappli.telefonibackend.Entity.Utilisateur;
 import org.bamappli.telefonibackend.Mapper.UserDTOMapper;
@@ -73,12 +70,11 @@ public class UtilisateurController {
     }
 
     @PostMapping("/update-token")
-    public ResponseEntity<String> updateFcmToken(@RequestParam Long userId,
-                                                 @RequestParam String newFcmToken) {
-        Optional<Utilisateur> utilisateurOpt = utilisateurRepo.findById(userId);
+    public ResponseEntity<String> updateFcmToken(@RequestBody UpdateFcmTokenDTO updateFcmTokenDTO) {
+        Optional<Utilisateur> utilisateurOpt = utilisateurRepo.findById(updateFcmTokenDTO.getUserId());
         if (utilisateurOpt.isPresent()) {
             Utilisateur utilisateur = utilisateurOpt.get();
-            utilisateur.setFcmToken(newFcmToken);
+            utilisateur.setFcmToken(updateFcmTokenDTO.getToken());
             utilisateurRepo.save(utilisateur);
             return ResponseEntity.ok("FCM token updated successfully");
         } else {
